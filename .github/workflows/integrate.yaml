@@ -5,7 +5,7 @@ on:
     branches: ["main"]
   
 jobs:
-   # Based on the branch gather the environment to deploy to
+   # Based on the branch gather the environment to deploy to..
   Identify-changes:
     runs-on: ["self-hosted"]
     name: test_flow
