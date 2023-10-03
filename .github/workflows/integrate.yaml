@@ -6,11 +6,17 @@ on:
   
 jobs:
    # Based on the branch gather the environment to deploy to
-  Identify-MS:
+  Identify-changes:
     runs-on: ["self-hosted"]
     name: test_flow
     steps:
-      - name: Set Value Based on Branch
-        id: set_value
-        run: |
-          echo "test running on self-hosted runner"
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        cache: 'pip' # caching pip dependencies
+    - run: pip install -r requirements.txt
+    - name: Run nornir
+      run: |
+        python nornir-image/app/configure_dev_devices.py
+
