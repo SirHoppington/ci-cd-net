@@ -18,4 +18,4 @@ jobs:
       - name: Run nornir
         run: |
           cd ./nornir-image/app
-          python3 configure_dev_devices.py
+          python3 configure_prod_devices.py
