@@ -10,13 +10,11 @@ jobs:
     runs-on: ["self-hosted"]
     name: test_flow
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.6'
-        cache: 'pip' # caching pip dependencies
-    - run: pip install -r requirements.txt
-    - name: Run nornir
-      run: |
-        python nornir-image/app/configure_dev_devices.py
-
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      - name: install requirements
+        run: |
+          pip install -r requirements.txt
+      - name: Run nornir
+        run: |
+          python nornir-image/app/configure_dev_devices.py
