@@ -1,8 +1,10 @@
 
-name: Compare configurations
+name: Dry Run changes
 on:
   push:
-    branches: ["main"]
+    branches:
+      - '*'
+      - '!main'
   
 jobs:
    # Based on the branch gather the environment to deploy to..
@@ -18,4 +20,4 @@ jobs:
       - name: Run nornir
         run: |
           cd ./nornir-image/app
-          python3 configure_prod_devices.py --no_dry_run
+          python3 configure_prod_devices.py --dry_run
