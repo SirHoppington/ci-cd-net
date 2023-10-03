@@ -5,5 +5,5 @@ nornir-jinja2==0.2.0
 nornir-napalm==0.4.0
 nornir-salt==0.20.2
 ttp==0.9.5
-genie==22.10
+genie==23.9
 pyats==22.10
