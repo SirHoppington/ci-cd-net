@@ -7,10 +7,10 @@ on:
 jobs:
    # Based on the branch gather the environment to deploy to
   Identify-MS:
-    runs-on: ["ubuntu-latest"]
+    runs-on: ["self-hosted"]
     name: test_flow
     steps:
       - name: Set Value Based on Branch
         id: set_value
         run: |
-          echo "test"
+          echo "test running on self-hosted runner"
