@@ -34,7 +34,7 @@ def deploy_network(task):
         task=napalm_configure,
         filename=f"./crq_configs/{task.host.name}.txt",
         dry_run=args.dry,
-        replace=True
+        replace=False
     )
 
 
