@@ -17,4 +17,5 @@ jobs:
           pip3 install -r requirements.txt
       - name: Run nornir
         run: |
-          python3 nornir-image/app/configure_dev_devices.py
+          cd ./nornir-image/app
+          python3 configure_dev_devices.py
