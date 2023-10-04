@@ -33,18 +33,23 @@ def deploy_network(task):
     task.run(
         name=f"Configuring {task.host.name}!",
         task=napalm_configure,
-        filename=f"../task.host.name",
+        filename=f"../app/crq_changes/{task.host.name}",
         dry_run=args.dry,
         replace=False
     )
+
+def get_hostnames(list):
+    hostnames = [host.split("/"[-1]) for host in list ]
+
+
 
 
 def main():
     nr = InitNornir(
         config_file="config.yaml")
     #crqs = compare_changes()
-    crqs = args.list
-    print(crqs)
+    #crqs = args.list
+    crqs = get_hostnames(args.list)
     filtered_hosts = FFun(nr, FL=crqs)
     result = filtered_hosts.run(task=deploy_network)
     print_result(result)
