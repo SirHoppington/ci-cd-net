@@ -23,37 +23,19 @@ jobs:
       - name: install requirements
         run: |
           pip3 install -r requirements.txt
-      - name: provide filters for directory changes
-        id: get_dir
-        run: |
-          # Fetch the list of directories from the environment variable
-          DIRECTORY_LIST="${{ env.DIRECTORY_LIST }}"
-          IFS=$', ' read -ra DIRECTORIES <<< "$DIRECTORY_LIST"
-          CHANGE_STRUCTURE+=$""
-          DEL_STRUCTURE+=$""
-          for DIR in "${DIRECTORIES[@]}"; do
-            CHANGE_STRUCTURE+="./$DIR:\n"
-            CHANGE_STRUCTURE+="  - added|modified|deleted: $DIR/**\n"
-          done
-          # Save multiline to output FILTER
-          echo "FILTER<<EOF" >> $GITHUB_OUTPUT
-          echo -e "$CHANGE_STRUCTURE" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-      # Checkout
-      - name: Checkout branch
-        uses: actions/checkout@v3
-      # Check for modified directories
       - name: Apply service modified filter
         uses: dorny/paths-filter@v2
         id: filter
         with:
           base: "main"
           filters: |
-            ${{ steps.get_dir.outputs.FILTER }}
+            crq_changes:
+              - add|modified : app/crq_configs/**
+              
       - name: compare container image 
         id: changes
         run: |
-          MS_LIST=${{toJSON(steps.filter.outputs.filter_files)}}
+          MS_LIST=${{toJSON(steps.filter.outputs.crq_changes_files)}}
           # Iterate through the JSON array using jq
           for dir in $(echo "$MS_LIST" | jq -r '.[]'); do
             input=$dir
