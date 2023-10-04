@@ -33,17 +33,17 @@ jobs:
             crqs:
               - add|modified : app/crq_configs/**
 
-      - name: compare container image 
-        id: changes
-        run: |
-          MS_LIST='${{steps.filter.outputs.crqs_files}}'
-          for dir in 
-          for dir in '$MS_LIST[@]'; do
-            input=$dir
-            config=$(basename "$input")
-            echo "CONFIG=$config" >> "$GITHUB_OUTPUT"
-            echo "config"
-          done
+      #- name: compare container image 
+      #  id: changes
+      #  run: |
+      #    MS_LIST='${{steps.filter.outputs.crqs_files}}'
+      #    for dir in 
+      #    for dir in '$MS_LIST[@]'; do
+      #      input=$dir
+      #      config=$(basename "$input")
+      #      echo "CONFIG=$config" >> "$GITHUB_OUTPUT"
+      #      echo "config"
+      #    done
 
       - name: Run nornir
         run: |
