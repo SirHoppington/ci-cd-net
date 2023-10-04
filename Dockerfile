@@ -1,10 +1,10 @@
 # base
 FROM python:3.9
 
-
+WORKDIR /usr/src/app
 
 # copy over the start.sh script
-COPY . .
+COPY ./ ./
 
 # make the script executable
 RUN pip3 install -r requirements.txt

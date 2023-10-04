@@ -4,8 +4,14 @@ on:
   push:
     branches:
       - '*'
-      - '!main'
-  
+      #- '!main'
+env:
+  # Add new Microservices directories here - match to kustomize dir name
+  DIRECTORY_LIST:
+    "
+    ./
+    "
+
 jobs:
    # Based on the branch gather the environment to deploy to..
   Identify-changes:
@@ -17,7 +23,34 @@ jobs:
       - name: install requirements
         run: |
           pip3 install -r requirements.txt
-      - name: Run nornir
+      - name: provide filters for directory changes
+        id: get_dir
         run: |
-          cd ./nornir-image/app
-          python3 configure_prod_devices.py --dry_run
+          # Fetch the list of directories from the environment variable
+          DIRECTORY_LIST="${{ env.DIRECTORY_LIST }}"
+          IFS=$', ' read -ra DIRECTORIES <<< "$DIRECTORY_LIST"
+          CHANGE_STRUCTURE+=$""
+          DEL_STRUCTURE+=$""
+          for DIR in "${DIRECTORIES[@]}"; do
+            CHANGE_STRUCTURE+="./$DIR:\n"
+            CHANGE_STRUCTURE+="  - added|modified|deleted: $DIR/**\n"
+          done
+          # Save multiline to output FILTER
+          echo "FILTER<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$CHANGE_STRUCTURE" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      # Checkout
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      # Check for modified directories
+      - name: Apply service modified filter
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          base: "333-maintenance-cicd-test-integration"
+          filters: |
+            ${{ steps.get_dir.outputs.FILTER }}
+
+      #- name: Run nornir
+      #  run: |
+      #    python3 configure_prod_devices.py --dry_run
