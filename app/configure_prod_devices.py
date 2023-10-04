@@ -40,6 +40,7 @@ def deploy_network(task):
 
 def get_hostnames(list):
     hostnames = [host.split("/"[-1]) for host in list ]
+    print(f"These hostnames {hostnames}")
     return hostnames
 
 
@@ -49,7 +50,8 @@ def main():
     nr = InitNornir(
         config_file="config.yaml")
     print(args.list)
-    #crqs = compare_changes()
+    compare = compare_changes()
+    print(f"These compared: {compare}")
     #crqs = args.list
     crqs = get_hostnames(args.list)
     filtered_hosts = FFun(nr, FL=crqs)
