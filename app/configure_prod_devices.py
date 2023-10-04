@@ -40,7 +40,7 @@ def deploy_network(task):
 
 def get_hostnames(list):
     #hostnames = [host.split("/"[-1]) for host in list ]
-    hostnames = [os.path.splitext(x)[0] for x in list]
+    hostnames = [os.path.splitext(x)[0].split("/")[-1] for x in list]
     print(f"These hostnames {hostnames}")
     return hostnames
 
