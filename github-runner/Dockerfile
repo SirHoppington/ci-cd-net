@@ -1,4 +1,4 @@
-# base
+# base.
 FROM ubuntu:22.04
 
 # set the github runner version
