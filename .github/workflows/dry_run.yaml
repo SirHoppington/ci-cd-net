@@ -53,7 +53,7 @@ jobs:
             ${{ steps.get_dir.outputs.FILTER }}
       - name: compare container image 
         run: |
-          MS_LIST=${{steps.filter.outputs.changes}}
+          MS_LIST=${{toJSON(steps.filter.outputs.changes)}}
           missing_dirs=""
           for dir in ${MS_LIST[@]}; do
             input=$dir
