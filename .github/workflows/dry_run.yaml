@@ -37,7 +37,6 @@ jobs:
         id: changes
         run: |
           MS_LIST='${{steps.filter.outputs.crqs_files}}'
-          # Iterate through the JSON array using jq
           for dir in $(echo "$MS_LIST" | jq -r '.[]'); do
             input=$dir
             config=$(basename "$input")
