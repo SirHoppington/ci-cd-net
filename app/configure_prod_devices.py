@@ -21,6 +21,7 @@ parser.add_argument(
     "--no_dry_run", dest="dry", action="store_false", help="Will run on devices"
 )
 
+parser.add_argument('--list', nargs='*', help='delimited list input', type=str)
 
 parser.set_defaults(dry=True)
 args = parser.parse_args()
@@ -41,7 +42,9 @@ def deploy_network(task):
 def main():
     nr = InitNornir(
         config_file="config.yaml")
-    crqs = compare_changes()
+    #crqs = compare_changes()
+    crqs = args.list
+    print(crqs)
     filtered_hosts = FFun(nr, FL=crqs)
     result = filtered_hosts.run(task=deploy_network)
     print_result(result)

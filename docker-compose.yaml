@@ -3,7 +3,7 @@ version: '3.3'
 # Docker compose for local GRPC testing
 services:
   nornir-deploy:
-    build: ./app
+    build: .
     container_name: nornir-ci
     command: tail -F anything
     volumes:

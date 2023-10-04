@@ -143,6 +143,7 @@ archive
  path bootflash:archive
  write-memory
 memory free low-watermark processor 72107
+file prompt quiet
 !
 !
 spanning-tree extend system-id
@@ -178,7 +179,7 @@ interface Loopback1000
  no ip address
 !
 interface GigabitEthernet1
- ip address 10.200.0.217 255.255.255.0
+ ip address 10.200.0.219 255.255.255.0
  negotiation auto
  no mop enabled
  no mop sysid

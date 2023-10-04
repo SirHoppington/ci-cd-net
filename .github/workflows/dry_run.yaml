@@ -9,8 +9,7 @@ env:
   # Add new Microservices directories here - match to kustomize dir name
   DIRECTORY_LIST:
     "
-    app,
-    github-runner
+    app/crq_configs
     "
 
 jobs:
@@ -52,13 +51,17 @@ jobs:
           filters: |
             ${{ steps.get_dir.outputs.FILTER }}
       - name: compare container image 
+        id: changes
         run: |
           MS_LIST=${{toJSON(steps.filter.outputs.changes)}}
           # Iterate through the JSON array using jq
-          for item in $(echo "$MS_LIST" | jq -r '.[]'); do
-            echo "Value: $item"
+          for dir in $(echo "$MS_LIST" | jq -r '.[]'); do
+            input=$dir
+            config=$(basename "$input")
+            echo "CONFIG=$config" >> "$GITHUB_OUTPUT"
           done
 
-      #- name: Run nornir
-      #  run: |
-      #    python3 configure_prod_devices.py --dry_run
+      - name: Run nornir
+        run: |
+          changed_configs='${{steps.changes.outputs.CONFIG}}'
+          python3 configure_prod_devices.py --dry_run --list $changed_configs
