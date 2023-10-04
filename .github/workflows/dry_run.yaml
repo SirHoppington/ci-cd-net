@@ -51,6 +51,14 @@ jobs:
           base: "main"
           filters: |
             ${{ steps.get_dir.outputs.FILTER }}
+      - name: compare container image 
+        run: |
+          MS_LIST=${{steps.filter.outputs.changed_ms}}
+          missing_dirs=""
+          for dir in ${MS_LIST[@]}; do
+            input=$dir
+            echo $dir
+          done
 
       #- name: Run nornir
       #  run: |
