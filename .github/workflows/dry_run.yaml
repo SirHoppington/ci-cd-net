@@ -48,7 +48,7 @@ jobs:
         uses: dorny/paths-filter@v2
         id: filter
         with:
-          base: "333-maintenance-cicd-test-integration"
+          base: "main"
           filters: |
             ${{ steps.get_dir.outputs.FILTER }}
 
