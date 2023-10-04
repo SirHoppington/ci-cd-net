@@ -37,7 +37,8 @@ jobs:
         id: changes
         run: |
           MS_LIST='${{steps.filter.outputs.crqs_files}}'
-          for dir in $(echo "$MS_LIST" | jq -r '.[]'); do
+          for dir in 
+          for dir in '$MS_LIST[@]'; do
             input=$dir
             config=$(basename "$input")
             echo "CONFIG=$config" >> "$GITHUB_OUTPUT"
