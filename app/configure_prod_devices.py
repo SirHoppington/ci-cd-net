@@ -6,7 +6,7 @@ from nornir_napalm.plugins.tasks import napalm_get, napalm_cli, napalm_configure
 from nornir.core.task import Task
 from utilities.check_config_changes import compare_changes
 from backup_script import post_change_backup
-
+import os 
 
 # Create config parser to set dry_run when running script
 parser = argparse.ArgumentParser()
@@ -39,7 +39,8 @@ def deploy_network(task):
     )
 
 def get_hostnames(list):
-    hostnames = [host.split("/"[-1]) for host in list ]
+    #hostnames = [host.split("/"[-1]) for host in list ]
+    hostnames = [os.path.splitext(x)[0] for x in list]
     print(f"These hostnames {hostnames}")
     return hostnames
 
