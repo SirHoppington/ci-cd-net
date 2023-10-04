@@ -53,7 +53,7 @@ jobs:
       - name: compare container image 
         id: changes
         run: |
-          MS_LIST=${{toJSON(steps.filter.outputs.changes)}}
+          MS_LIST=${{toJSON(steps.filter.outputs.filter_files)}}
           # Iterate through the JSON array using jq
           for dir in $(echo "$MS_LIST" | jq -r '.[]'); do
             input=$dir
@@ -64,4 +64,5 @@ jobs:
       - name: Run nornir
         run: |
           changed_configs='${{steps.changes.outputs.CONFIG}}'
+          cd app
           python3 configure_prod_devices.py --dry_run --list $changed_configs
