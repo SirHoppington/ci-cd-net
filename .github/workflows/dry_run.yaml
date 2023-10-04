@@ -29,13 +29,14 @@ jobs:
         with:
           base: "main"
           filters: |
-            crq_changes:
+            crqs:
               - add|modified : app/crq_configs/**
-              
+
       - name: compare container image 
         id: changes
         run: |
-          MS_LIST=${{toJSON(steps.filter.outputs.crq_changes_files)}}
+          #MS_LIST=${{toJSON(steps.filter.outputs.crq_changes_files)}}
+          MS_LIST=${{steps.filter.outputs.crqs_files}}
           # Iterate through the JSON array using jq
           for dir in $(echo "$MS_LIST" | jq -r '.[]'); do
             input=$dir
