@@ -40,6 +40,7 @@ def deploy_network(task):
 
 def get_hostnames(list):
     hostnames = [host.split("/"[-1]) for host in list ]
+    return hostnames
 
 
 
@@ -47,6 +48,7 @@ def get_hostnames(list):
 def main():
     nr = InitNornir(
         config_file="config.yaml")
+    print(args.list)
     #crqs = compare_changes()
     #crqs = args.list
     crqs = get_hostnames(args.list)
