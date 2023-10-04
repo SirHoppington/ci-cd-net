@@ -9,7 +9,8 @@ env:
   # Add new Microservices directories here - match to kustomize dir name
   DIRECTORY_LIST:
     "
-    .
+    app,
+    github-runner
     "
 
 jobs:
