@@ -24,3 +24,5 @@ interface GigabitEthernet4
  no mop enabled
  no mop sysid
 !
+router bgp 65001
+ neighbor 10.200.0.220 remote-as 65003
