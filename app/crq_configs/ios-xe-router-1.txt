@@ -1,6 +1,6 @@
 interface GigabitEthernet1
-  ip address 10.200.0.100 255.255.255.0
+  ip address 10.200.0.110 255.255.255.0
 !
 router bgp 65001
-  neighbor 10.200.100 remote-as 100
+  neighbor 10.200.101 remote-as 100
 !
