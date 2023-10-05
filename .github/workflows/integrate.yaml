@@ -15,7 +15,20 @@ jobs:
       - name: install requirements
         run: |
           pip3 install -r requirements.txt
+      - name: Apply service modified filter
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          list-files: shell
+          base: "main"
+          filters: |
+            crqs:
+              - add|modified : app/crq_configs/**
+
       - name: Run nornir
         run: |
-          cd ./nornir-image/app
-          python3 configure_prod_devices.py --no_dry_run
+          #changed_configs='${{steps.changes.outputs.CONFIG}}'
+          changed_configs='${{steps.filter.outputs.crqs_files}}'
+          echo $changed_configs
+          cd app
+          python3 configure_prod_devices.py --no_dry_run --list $changed_configs
