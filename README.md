@@ -21,3 +21,4 @@ Nornir CI/CD Pipeline workflow:
 7. PyATS post test scripts run 
    1. pull request made to main branch
 8. Peer review/CAB of proposed changes.
+9 . Last dry-run only runs on last commit changes (it won't run on previous device if multiple pushes are done for each device)..it will run on push to main however.
