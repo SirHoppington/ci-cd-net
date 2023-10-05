@@ -23,6 +23,4 @@ interface GigabitEthernet4
  negotiation auto
  no mop enabled
  no mop sysid
-!
-router bgp 65001
- neighbor 10.200.0.202 remote-as 65004
+
