@@ -33,7 +33,7 @@ def deploy_network(task):
     task.run(
         name=f"Configuring {task.host.name}!",
         task=napalm_configure,
-        filename=f"./crq_changes/{task.host.name}.txt",
+        filename=f"./crq_configs/{task.host.name}.txt",
         dry_run=args.dry,
         replace=False
     )
@@ -55,6 +55,7 @@ def main():
     print(f"These compared: {compare}")
     #crqs = args.list
     crqs = get_hostnames(args.list)
+    print(f"These new crqs are: {crqs}")
     filtered_hosts = FFun(nr, FL=crqs)
     result = filtered_hosts.run(task=deploy_network)
     print_result(result)
