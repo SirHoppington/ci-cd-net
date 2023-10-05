@@ -28,7 +28,7 @@ jobs:
         id: filter
         with:
           list-files: shell
-          base: "main"
+          base: ${{ github.ref_name }}
           filters: |
             crqs:
               - add|modified : app/crq_configs/**
