@@ -1,10 +1,13 @@
 
 name: Dry Run changes
 on:
-  push:
-    branches:
-      - '*'
-      - '!main'
+  pull_request:
+    types: 
+      - opened
+      - synchronize
+      - reopened
+      - edited
+    
 env:
   # Add new Microservices directories here - match to kustomize dir name
   DIRECTORY_LIST:
@@ -28,7 +31,7 @@ jobs:
         id: filter
         with:
           list-files: shell
-          base: ${{ github.ref_name }}
+          base: "main"
           filters: |
             crqs:
               - add|modified : app/crq_configs/**

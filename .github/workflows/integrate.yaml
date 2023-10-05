@@ -27,8 +27,6 @@ jobs:
 
       - name: Run nornir
         run: |
-          #changed_configs='${{steps.changes.outputs.CONFIG}}'
           changed_configs='${{steps.filter.outputs.crqs_files}}'
-          echo $changed_configs
           cd app
           python3 configure_prod_devices.py --no_dry_run --list $changed_configs
