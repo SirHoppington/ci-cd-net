@@ -1,3 +1,0 @@
-router bgp 65001
-  neighbor 10.200.0.200 remote-as 6500
-!
