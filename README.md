@@ -5,7 +5,7 @@ a Network DevOps CI/CD pipeline.
 
 Nornir CI/CD Pipeline workflow:
 
-1. Engineer clones main repo and creates feature branch forr the "changes" to be made -likely the reference of a change control.
+1. Engineer clones main repo and creates feature branch for the "changes" to be made -likely the reference of a change control.
 
 2. Engineer modifies configuration in "/crq_changes" and pushes to the feature branch.
 
