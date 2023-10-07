@@ -11,7 +11,7 @@ Nornir CI/CD Pipeline workflow:
 
 3. Github actions workflow file "dry_run.yaml" checks for configuration changes to any files with "/crq_changes" on the feature branch.
    - if changes are detected then nornir will run a dry-run of the changes to the respective hosts (text file name must match hostname in inventory hosts file).
-4. When the engineer is happy withe changes ta Pull Request is opend to Main.
+4. When the engineer is happy with the changes a Pull Request is opend to Main.
    - The "dry_run.yaml" workflow again detects changes and applys the dry-run.
    - If tests pass then the branch can be merged to main.
 5. When the branch is merged to main the "integrate.yaml" workflow runs which applies the changes to the respective devices.
