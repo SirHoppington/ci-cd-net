@@ -55,7 +55,9 @@ def get_napalm_backups(task, hash=None):
     try:
         backup_result = task.run(task=napalm_get, getters=["config"])
         config = backup_result.result["config"]["running"]
-        save_config_to_file(hostname=task.host.name, config=config, hash=str(hash))
+        if hash is not None:
+            hash = str(hash)
+        save_config_to_file(hostname=task.host.name, config=config, hash=hash)
         #shutil.copy(f"./gold_config/{hostname}.txt", f"./crq_configs/{hostname}.txt")
         return config
     except Exception as e:
