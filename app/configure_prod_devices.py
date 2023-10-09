@@ -49,7 +49,7 @@ def main():
     filtered_hosts = FFun(nr, FL=crqs)
     result = filtered_hosts.run(task=deploy_network)
     print_result(result)
-    post_change_backup(filtered_hosts)
+    backup = filtered_hosts.run(post_change_backup())
 
 
 # Add line to update Golden config after change?

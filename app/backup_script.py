@@ -39,6 +39,7 @@ def post_change_backup(devices):
     for hostname in backup_results:
         config = backup_results[hostname][0].result["config"]["running"]
         save_config_to_file(hostname=hostname, config=config)
+    return backup_results
 
 # Manual alternative backup using napalm_cli to retrieve backup for IOS devices
 # def get_napalm_backups():
