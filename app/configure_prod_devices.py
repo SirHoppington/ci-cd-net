@@ -4,7 +4,7 @@ from nornir_salt.plugins.functions import FFun
 from nornir_utils.plugins.functions import print_result
 from nornir_napalm.plugins.tasks import napalm_configure
 from utilities.general_utilities import get_hostnames
-from backup_script import post_change_backup
+from backup_script import get_napalm_backups
 import os
 
 # Create config parser to set dry_run when running script
@@ -21,7 +21,10 @@ parser.add_argument(
 
 parser.add_argument("--list", nargs="*", help="delimited list input", type=str)
 
+parser.add_argument("--hash", help="GitHub Hash for backup", type=str)
+
 parser.set_defaults(dry=True)
+parser.set_defaults(hash=None)
 args = parser.parse_args()
 
 
@@ -49,9 +52,9 @@ def main():
     filtered_hosts = FFun(nr, FL=crqs)
     result = filtered_hosts.run(task=deploy_network)
     print_result(result)
-    backup = filtered_hosts.run(task=post_change_backup)
+    backup = filtered_hosts.run(task=get_napalm_backups, hash=args.hash)
     print_result(result)
-    print_result(backup)
+    #print_result(backup)
 
 
 # Add line to update Golden config after change?
