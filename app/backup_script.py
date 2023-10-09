@@ -33,7 +33,7 @@ def save_config_to_file(hostname, config, hash=None):
         create_backups_dir(BACKUP_DIR)
         with open(os.path.join(BACKUP_DIR, filename), "w") as f:
             f.write(config)
-        subprocess.Popen('f"{BACKUP_DIR}/{filename}"', shell=True)
+        subprocess.Popen(f"{BACKUP_DIR}/{filename}", shell=True)
     except Exception as e:
         print(f"Error {e} in save_config_to_file")
 
