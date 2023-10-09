@@ -35,6 +35,10 @@ jobs:
           git config --global user.name "Pipeline-BOT"
           git config --global user.email "Pipe-BOT@github.com"
           git config pull.rebase true
-          git commit
-          git pull
-          git push
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit
+            git pull
+            git push
+          else
+            echo "No changes made to kustomization file";
+          fi
