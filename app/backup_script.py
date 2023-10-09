@@ -34,8 +34,8 @@ def get_napalm_backups():
 
 
 # Function to update the golden config for devices within the "devices" Nornir object
-def post_change_backup(devices):
-    backup_results = devices.run(task=napalm_get, getters=["config"])
+def post_change_backup(task):
+    backup_results = task.run(task=napalm_get, getters=["config"])
     for hostname in backup_results:
         config = backup_results[hostname][0].result["config"]["running"]
         save_config_to_file(hostname=hostname, config=config)

@@ -24,8 +24,9 @@ jobs:
           filters: |
             crqs:
               - add|modified : app/crq_configs/**
-
+  
       - name: Run nornir
+        if: ${{steps.filter.outputs.crqs_files}} != ''
         run: |
           changed_configs='${{steps.filter.outputs.crqs_files}}'
           cd app
