@@ -50,6 +50,8 @@ def main():
     result = filtered_hosts.run(task=deploy_network)
     print_result(result)
     backup = filtered_hosts.run(task=post_change_backup)
+    print_result(result)
+    print_result(backup)
 
 
 # Add line to update Golden config after change?
