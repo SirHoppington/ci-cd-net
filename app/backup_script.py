@@ -3,11 +3,11 @@ import shutil
 from nornir import InitNornir
 from nornir_napalm.plugins.tasks import napalm_get, napalm_cli
 from nornir.core.filter import F
+
 BACKUP_DIR = "gold_config"
 
 # Initiate Nornir object via config file
-nr = InitNornir(
-    config_file="./config.yaml")
+nr = InitNornir(config_file="./config.yaml")
 
 
 # Function to create backup directory if it doesn't already exist
@@ -25,7 +25,7 @@ def save_config_to_file(hostname, config):
 
 # Use Napalm backup feature to retrieve backup for IOS devices
 def get_napalm_backups():
-    prod_devices = nr.filter(F(groups__contains='prod'))
+    prod_devices = nr.filter(F(groups__contains="prod"))
     backup_results = prod_devices.run(task=napalm_get, getters=["config"])
     for hostname in backup_results:
         config = backup_results[hostname][0].result["config"]["running"]
@@ -40,6 +40,7 @@ def post_change_backup(task):
         config = backup_results[hostname][0].result["config"]["running"]
         save_config_to_file(hostname=hostname, config=config)
     return backup_results
+
 
 # Manual alternative backup using napalm_cli to retrieve backup for IOS devices
 # def get_napalm_backups():

@@ -8,7 +8,7 @@ jobs:
    # Based on the branch gather the environment to deploy to..
   Identify-changes:
     runs-on: ["self-hosted"]
-    name: test_flow
+    name: Apply to Prod
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
