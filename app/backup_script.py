@@ -26,7 +26,7 @@ def save_config_to_file(hostname, config, hash=None):
     try:
         if hash is not None:
             filename = f"{hostname}-{hash}.txt"
-            BACKUP_DIR=CRQ_DIR
+            BACKUP_DIR=f"{CRQ_DIR}/{hostname}"
         else:
             BACKUP_DIR=GOLD_DIR
             filename = f"{hostname}.txt"
