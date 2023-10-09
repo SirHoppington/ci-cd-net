@@ -143,7 +143,6 @@ archive
  path bootflash:archive
  write-memory
 memory free low-watermark processor 72107
-file prompt quiet
 !
 !
 spanning-tree extend system-id
@@ -200,9 +199,6 @@ interface GigabitEthernet4
  negotiation auto
  no mop enabled
  no mop sysid
-!
-router ospf 100
- network 10.0.0.0 0.0.0.255 area 0
 !
 router bgp 65002
  bgp log-neighbor-changes
