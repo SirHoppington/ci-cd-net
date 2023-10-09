@@ -50,14 +50,10 @@ def main():
     crqs = get_hostnames(args.list)
     print(f"Checking configuration changes for updated hosts: {crqs}")
     filtered_hosts = FFun(nr, FL=crqs)
+    filtered_hosts.run(task=get_napalm_backups, hash=args.hash)
     result = filtered_hosts.run(task=deploy_network)
+    filtered_hosts.run(task=get_napalm_backups, hash=None)
     print_result(result)
-    backup = filtered_hosts.run(task=get_napalm_backups, hash=args.hash)
-    print_result(result)
-    #print_result(backup)
-
-
-# Add line to update Golden config after change?
 
 
 if __name__ == "__main__":

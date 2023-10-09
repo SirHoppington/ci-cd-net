@@ -29,14 +29,14 @@ jobs:
         run: |
           changed_configs='${{steps.filter.outputs.crqs_files}}'
           cd app
-          python3 configure_prod_devices.py --no_dry_run --list $changed_configs
+          python3 configure_prod_devices.py --no_dry_run --list $changed_configs --hash ${{ github.sha }}
       - name: Push to Repo
         run: |
           git config --global user.name "Pipeline-BOT"
           git config --global user.email "Pipe-BOT@github.com"
           git config pull.rebase true
           if [ -n "$(git status --porcelain)" ]; then
-             git commit -am "feat: Update backups for ${{ github.sha }} [skip ci]"
+            git commit -am "feat: Update backups for ${{ github.sha }} [skip ci]"
             git pull
             git push
           else
