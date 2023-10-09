@@ -54,7 +54,7 @@ def main():
     print(type(args.hash))
     filtered_hosts.run(task=get_napalm_backups, hash=args.hash)
     result = filtered_hosts.run(task=deploy_network)
-    filtered_hosts.run(task=get_napalm_backups, hash=None)
+    filtered_hosts.run(task=get_napalm_backups)
     print_result(result)
 
 
