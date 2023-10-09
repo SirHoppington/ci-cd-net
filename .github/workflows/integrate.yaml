@@ -36,8 +36,8 @@ jobs:
           git config --global user.email "Pipe-BOT@github.com"
           git config pull.rebase true
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -am "feat: Update backups for ${{ github.sha }} [skip ci]"
             git add --all
+            git commit -am "feat: Update backups for ${{ github.sha }} [skip ci]"
             git pull
             git push
           else
