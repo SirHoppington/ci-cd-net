@@ -50,9 +50,11 @@ def main():
     crqs = get_hostnames(args.list)
     print(f"Checking configuration changes for updated hosts: {crqs}")
     filtered_hosts = FFun(nr, FL=crqs)
+    print(args.hash)
+    print(type(args.hash))
     filtered_hosts.run(task=get_napalm_backups, hash=args.hash)
     result = filtered_hosts.run(task=deploy_network)
-    filtered_hosts.run(task=get_napalm_backups, hash=None)
+    filtered_hosts.run(task=get_napalm_backups, hash=args.hash)
     print_result(result)
 
 
