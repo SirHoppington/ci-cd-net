@@ -1,6 +1,6 @@
 !
 interface GigabitEthernet1
- ip address 10.200.0.66 255.255.255.0
+ ip address 10.200.0.90 255.255.255.0
  negotiation auto
  no mop enabled
  no mop sysid
