@@ -5,6 +5,8 @@ Engineers will configure txt files with required changes, which will be tested v
 
 ## Nornir CI/CD Pipeline workflow:
 
+All relevent code and config is in the "app" directory. The github runner setup is in the "github-runner" directory. If forking the branch you can use the "github_runner" Dockerfile (using respetive repo and PAT token env variables to create a github self-hosted runner via docker build).
+
 1. Engineer clones main repo and creates feature branch for the "changes" to be made -likely the reference of a change control.
 
 ```
