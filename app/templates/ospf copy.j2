@@ -1,0 +1,12 @@
+{% if host.OSPF.process is not none %}
+ router ospf {{ host.OSPF.process }}
+  {% if host.OSPF.id is not none %}
+   router-id {{ host.OSPF.id }}
+  {% endif %}
+  {% for n in host.OSPF.networks %}
+  {% if n.net is not none and n.wildcard is not none and n.area is not none %}
+   network {{ n.net }} {{ n.wildcard }} area {{ n.area }}
+  {% endif %}
+  {% endfor %}
+{% endif %}
+!

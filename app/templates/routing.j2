@@ -1,0 +1,11 @@
+router ospf {{ host.routing.OSPF.process }}
+ router-id {{ host.routing.OSPF.id }}
+ {% for n in host.routing.OSPF.networks %}
+network {{ n.net }} {{ n.wildcard }} area {{ n.area }}
+ {% endfor %}
+!
+router bgp {{ host.routing.BGP.asn }}
+{% for n in host.routing.BGP.peerings %}
+ neighbor {{ n.peer_ip }} remote-as {{ n.peer_asn }}
+{% endfor %}
+!

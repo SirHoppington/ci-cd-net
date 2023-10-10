@@ -3,6 +3,24 @@ ios-xe-router-2:
   groups:
     - ios
     - prod
+  routing:
+    OSPF:
+      process: 1
+      id : 1.1.1.1
+      networks:
+        - net: 10.0.0.0
+          wildcard: 0.0.0.255
+          area: 100
+        - net: 192.168.100.0
+          wildcard: 0.0.0.255
+          area: 0
+    BGP:
+      asn: 65002
+      peerings:
+        - peer_asn: 200
+          peer_ip: 1.2.2.3
+          #vpn:
+  
 ios-xe-router-1:
   hostname: 10.0.0.110
   groups:

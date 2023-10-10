@@ -204,11 +204,23 @@ interface GigabitEthernet4
 router ospf 100
  network 10.0.0.0 0.0.0.255 area 0
 !
+router ospf 1
+ router-id 1.1.1.1
+ network 10.0.0.0 0.0.0.255 area 100
+ network 192.168.1.0 0.0.0.255 area 0
+ network 192.168.100.0 0.0.0.255 area 0
+!
 router bgp 65002
  bgp log-neighbor-changes
+ neighbor 1.2.2.2 remote-as 200
+ neighbor 1.2.2.3 remote-as 200
+ neighbor 2.2.2.2 remote-as 200
  neighbor 10.200.0.215 remote-as 65001
  !
  address-family ipv4
+  neighbor 1.2.2.2 activate
+  neighbor 1.2.2.3 activate
+  neighbor 2.2.2.2 activate
   neighbor 10.200.0.215 activate
  exit-address-family
 !
