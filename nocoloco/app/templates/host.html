@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block head %}
+{% endblock head %} 
+{% block content %}
+<h2>Host {{host.name}} </h2>
+<div class="table-responsive small">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">#ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Hostname/IP</th>
+        <th scope="col">Group</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{host.id}}</td>
+        <td>{{host.name}}</td>
+        <td>{{host.hostname}}</td>
+        <td>{{host.group}}</td>
+        <td>{{host.status}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>{{host.name}} BGP stats </h2>
+<div class="table-responsive small">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">#ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Hostname/IP</th>
+        <th scope="col">Group</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{host.id}}</td>
+        <td>{{host.name}}</td>
+        <td>{{host.hostname}}</td>
+        <td>{{host.group}}</td>
+        <td>{{host.status}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

@@ -1,0 +1,26 @@
+# config.yaml..
+---
+inventory:
+       #plugin: SimpleInventory
+       #options:
+       #     host_file: 'inventory/hosts.yaml'
+       #     group_file: 'inventory/groups.yaml'
+       #     defaults_file: 'inventory/defaults.yaml'
+     plugin: SQLInventory
+     options:
+          sql_connection: 'postgresql://admin:AnimalAcc3ss@postgres/ipam'
+          hosts_query: >
+               SELECT name, hostname, groups
+               FROM hosts
+               WHERE status = 'deployed'
+          groups_query: >
+               SELECT name, platform
+               FROM groups
+               WHERE platform != ''
+          defaults:
+               username: 'admin'
+               password: 'admin'
+runner:
+       plugin: threaded
+       options:
+            num_workers: 2

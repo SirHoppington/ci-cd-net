@@ -3,12 +3,22 @@ version: '3.3'
 # Docker compose for local GRPC testing
 services:
   nornir-deploy:
-    build: .
+    build: ./nocoloco
     container_name: nornir-ci
     command: tail -F anything
+    ports:
+      - "5001:8888"
     volumes:
-      - ./app:/usr/src/app:rw
+      - ./nocoloco:/usr/src/app:rw
 
+  postgres:
+    #build: ./octobus/harvester/hyperconnect-api
+    image: "postgres"
+    env_file:
+     - ./postgres/database.env
+#    command: echo "host    all    all    0.0.0.0/0    md5" >> /var/lib/postgresql/data/pg_hba.conf
+    volumes:
+     - pgdata:/var/libpostgresql/data/
 
 volumes:
   pgdata: {}

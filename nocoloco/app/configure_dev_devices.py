@@ -44,7 +44,7 @@ def deploy_network(task):
 
 def main():
     nr = InitNornir(
-        config_file="config.yaml")
+        config_file="./config.yaml")
     crqs = compare_changes()
     dev_devices = [ f'dev-{x}' for x in crqs]
     filtered_hosts = FFun(nr, FL=dev_devices)

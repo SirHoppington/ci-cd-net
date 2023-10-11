@@ -10,7 +10,7 @@ GOLD_DIR = "gold_config"
 CRQ_DIR = "crq_backups"
 
 # Initiate Nornir object via config file
-nr = InitNornir(config_file="./config.yaml")
+nr = InitNornir(config_file="./app/config.yaml")
 
 
 # Function to create backup directory if it doesn't already exist

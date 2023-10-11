@@ -3,7 +3,7 @@ from nornir import InitNornir
 from nornir_salt.plugins.functions import FFun
 from nornir_utils.plugins.functions import print_result
 from nornir_napalm.plugins.tasks import napalm_configure
-from utilities.general_utilities import get_hostnames
+from app.utilities.general_utilities import get_hostnames
 from backup_script import get_napalm_backups
 import os
 
@@ -44,9 +44,8 @@ def get_hostnames(list):
     hostnames = [os.path.splitext(x)[0].split("/")[-1] for x in list]
     return hostnames
 
-
 def main():
-    nr = InitNornir(config_file="config.yaml")
+    nr = InitNornir(config_file="./app/config.yaml")
     crqs = get_hostnames(args.list)
     print(f"Checking configuration changes for updated hosts: {crqs}")
     filtered_hosts = FFun(nr, FL=crqs)

@@ -17,3 +17,4 @@ RUN pip3 install -r requirements.txt
 
 # Run container with:
 # docker run --detach --env-file .env --name runner runner-image
+ENTRYPOINT ["python3 wsgi.py"]
