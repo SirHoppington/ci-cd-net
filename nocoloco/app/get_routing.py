@@ -1,5 +1,4 @@
 import argparse
-from nornir import InitNornir
 from nornir_salt.plugins.functions import FFun
 from nornir_utils.plugins.functions import print_result
 from nornir_jinja2.plugins.tasks import template_file
@@ -8,9 +7,14 @@ from nornir_napalm.plugins.tasks import napalm_get
 from nornir_netmiko.tasks import netmiko_send_config
 from app.utilities.general_utilities import get_hostnames
 from app.backup_script import get_napalm_backups
+from nornir.core.exceptions import NornirExecutionError
+from app import nr
+
 import os
 
 # Create config parser to set dry_run when running script
+
+'''
 parser = argparse.ArgumentParser()
 
 parser.add_argument(
@@ -29,35 +33,40 @@ parser.add_argument("--hash", help="GitHub Hash for backup", type=str)
 parser.set_defaults(dry=True)
 parser.set_defaults(hash=None)
 args = parser.parse_args()
-
+'''
 
 # Deploy network configuration task to hosts
 # https://napalm.readthedocs.io/en/latest/support/
-def get_bgp(task):
-    result = task.run(
-        name=f"Configuring {task.host.name}",
-        task=napalm_get,
-        getters=["get_bgp_neighbors", "get_bgp_config"]
-    )
-    #print(result.result["get_bgp_neighbors"])
-    return result
 
+
+def get_bgp(task):
+    try:
+        result = task.run(
+            name=f"get_bgp",
+            task=napalm_get,
+            #getters=["get_bgp_neighbors", "get_bgp_neighbors_detail"]
+            getters=["get_bgp_neighbors"]
+        )
+        #print(result.result["get_bgp_neighbors"])
+        return result
+    except NornirExecutionError:
+        return {"message": "Connectivity Error"}
 def get_hostnames(list):
     hostnames = [os.path.splitext(x)[0].split("/")[-1] for x in list]
     return hostnames
 
-def get_host(host):
-    nr = InitNornir(config_file="./app/config.yaml")
-    filtered_hosts = FFun(nr, FL=host)
-    filtered_hosts.run(task=get_napalm_backups, hash=args.hash)
-    result = filtered_hosts.run(task=get_bgp)
-    filtered_hosts.run(task=get_napalm_backups)
-    print_result(result)
-    return result
-
+def get_host_bgp(host):
+    try:
+        filtered_hosts = FFun(nr, FL=host)
+        print(filtered_hosts.dict())
+        #filtered_hosts.run(task=get_napalm_backups, hash=args.hash)
+        result = filtered_hosts.run(task=get_bgp)
+        #filtered_hosts.run(task=get_napalm_backups)
+        return result
+    except NornirExecutionError:
+        return {"message": "Connectivity Error"}
 
 def main():
-    nr = InitNornir(config_file="./app/config.yaml")
     crqs = get_hostnames(args.list)
     print(f"Checking configuration changes for updated hosts: {crqs}")
     filtered_hosts = FFun(nr, FL=crqs)

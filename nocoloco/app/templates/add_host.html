@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <script>
+	   $(document).ready(function (e) {
+			$('#upload').on('click', function () {
+			    var form_data = new FormData();
+			    var url = "{{ url_for('post.add_host') }}";
+				form_data.append("name", document.getElementById('name').value);
+                form_data.append("hostname", document.getElementById('hostname').value);
+                form_data.append("group", document.getElementById('group').value);
+                form_data.append("status", document.getElementById('status').value);
+
+				function onSuccess(responseText) {
+				    alert(responseText)
+                    document.getElementById("blogform").reset();
+
+                }
+                function onError() {
+				    alert("Title already in use, use a unique Title.")
+                }
+
+				$.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form_data, // serializes the form's elements.
+                    cache: false,
+					contentType: false,
+					processData: false,
+                    success: onSuccess,
+                    error: onError
+				});
+			});
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="form-wrapper">
+                <h1 class="mt-4">Add New Host</h1>
+                <hr>
+                <form method="POST" id="blogform" action="add_host" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <fieldset class="form-field">
+                        {{ form.name.label}}
+                        {{ form.name(size=20) }}
+                    </fieldset>
+                    <hr>
+                    <fieldset class="form-field">
+                        {{ form.hostname.label}}
+                        {{ form.hostname(size=20) }}
+                    </fieldset>
+                    <hr>
+                    <fieldset class="form-field">
+                        {{ form.group.label}}
+                        {{ form.group }}
+                    </fieldset>
+                     <hr>
+                    <fieldset class="form-field">
+                        {{ form.status.label}}
+                        {{ form.status }}
+                    </fieldset>
+                </form>
+            </div>
+	    </div>
+         <div class="col-lg-8">
+             <hr>
+             <button class="btn btn-outline-success my-2 my-sm-0" id="upload">Add Host</button>
+             <hr>
+             <br>
+             <br>
+             <br>
+             <br>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

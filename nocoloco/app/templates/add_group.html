@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <script>
+	   $(document).ready(function (e) {
+			$('#upload').on('click', function () {
+			    var form_data = new FormData();
+			    var url = "{{ url_for('post.add_group') }}";
+				form_data.append("name", document.getElementById('name').value);
+                form_data.append("platform", document.getElementById('platform').value);
+				function onSuccess(responseText) {
+				    alert(responseText)
+                    document.getElementById("groupform").reset();
+
+                }
+                function onError() {
+				    alert("Title already in use, use a unique Title.")
+                }
+
+				$.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form_data, // serializes the form's elements.
+                    cache: false,
+					contentType: false,
+					processData: false,
+                    success: onSuccess,
+                    error: onError
+				});
+			});
+		});
+	</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="form-wrapper">
+                <h1 class="mt-4">Add New Group </h1>
+                <hr>
+                <form method="POST" id="groupform" action="/add_group" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    <fieldset class="form-field">
+                        {{ form.name.label}}
+                        {{ form.name(size=20) }}
+                    </fieldset>
+                    <hr>
+                    <fieldset class="form-field">
+                        {{ form.platform.label}}
+                        {{ form.platform(size=20) }}
+                    </fieldset>
+                    <hr>
+                </form>
+            </div>
+	    </div>
+         <div class="col-lg-8">
+             <hr>
+             <button class="btn btn-outline-success my-2 my-sm-0" id="upload">Add Group</button>
+             <hr>
+             <br>
+             <br>
+             <br>
+             <br>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

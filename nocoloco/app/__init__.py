@@ -6,12 +6,12 @@ from flask_migrate import Migrate
 #from werkzeug.security import generate_password_hash
 import uuid
 from flask_login import LoginManager
-
+from nornir import InitNornir
 
 db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
-
+nr = InitNornir(config_file="./app/config.yaml")
 
 def create_app(config_name=None):
     if config_name is None:
@@ -23,6 +23,7 @@ def create_app(config_name=None):
     
     db.init_app(app)
     migrate.init_app(app, db)
+    
     '''
     login_manager.login_view='auth.sign_in'
     login_manager.init_app(app)
@@ -31,9 +32,14 @@ def create_app(config_name=None):
 
     app.register_blueprint(get)
 
+    from app.routes.add_hosts import post
+
+    app.register_blueprint(post)
+
     
     with app.app_context():
         db.create_all()
+
     '''
         if not Users.query.filter_by(email=admin_email).first():
             # Generate default admin user account:

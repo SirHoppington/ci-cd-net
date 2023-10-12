@@ -1,6 +1,6 @@
 import os
 import shutil
-from nornir import InitNornir
+from app import nr 
 from nornir_napalm.plugins.tasks import napalm_get, napalm_cli
 from nornir.core.filter import F
 import datetime
@@ -8,9 +8,6 @@ import subprocess
 
 GOLD_DIR = "gold_config"
 CRQ_DIR = "crq_backups"
-
-# Initiate Nornir object via config file
-nr = InitNornir(config_file="./app/config.yaml")
 
 
 # Function to create backup directory if it doesn't already exist

@@ -1,21 +1,22 @@
 # config.yaml..
 ---
 inventory:
-       #plugin: SimpleInventory
-       #options:
-       #     host_file: 'inventory/hosts.yaml'
-       #     group_file: 'inventory/groups.yaml'
-       #     defaults_file: 'inventory/defaults.yaml'
+     #plugin: SimpleInventory
+     #options:
+     #     host_file: 'inventory/hosts.yaml'
+     #     group_file: 'inventory/groups.yaml'
+     #     defaults_file: 'inventory/defaults.yaml'
      plugin: SQLInventory
      options:
           sql_connection: 'postgresql://admin:AnimalAcc3ss@postgres/ipam'
           hosts_query: >
-               SELECT name, hostname, groups
-               FROM hosts
-               WHERE status = 'deployed'
+               SELECT h.name, h.hostname, g.name AS groups
+               FROM host_table h
+               JOIN host_to_group hg ON h.id = hg.host_id
+               JOIN group_table g ON hg.group_id = g.id 
           groups_query: >
                SELECT name, platform
-               FROM groups
+               FROM group_table
                WHERE platform != ''
           defaults:
                username: 'admin'

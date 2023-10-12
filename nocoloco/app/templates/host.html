@@ -27,26 +27,36 @@
 </div>
 
 <h2>{{host.name}} BGP stats </h2>
+{% for k, v in result.items() %}
+<p> Router ID {{v.router_id}}</p>
+<h3> {{ k }} address family </h3>
 <div class="table-responsive small">
   <table class="table table-striped table-sm">
     <thead>
       <tr>
-        <th scope="col">#ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Hostname/IP</th>
-        <th scope="col">Group</th>
-        <th scope="col">Status</th>
+        <th scope="col">Peer IP</th>
+        <th scope="col">Local AS</th>
+        <th scope="col">Remote AS</th>
+        <th scope="col">Remote ID</th>
+        <th scope="col">Up</th>
+        <th scope="col">Enabled</th>
+        <th scope="col">Description</th>
       </tr>
     </thead>
     <tbody>
+        {% for k, v in v["peers"].items() %}
       <tr>
-        <td>{{host.id}}</td>
-        <td>{{host.name}}</td>
-        <td>{{host.hostname}}</td>
-        <td>{{host.group}}</td>
-        <td>{{host.status}}</td>
+        <td>{{ k }}</td>
+        <td>{{v.local_as}}</td>
+        <td>{{v.remote_as}}</td>
+        <td>{{v.remote_id}}</td>
+        <td>{{v.is_up }}</td>
+        <td>{{v.is_enabled }}</td>
+        <td>{{v.description }}</td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
+  {% endfor %}
 </div>
 {% endblock content %}
