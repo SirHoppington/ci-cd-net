@@ -21,6 +21,10 @@ __pycache__/
 # C extensions
 *.so
 
+.DS_Store
+*.ini
+nocoloco/migrations
+
 # Distribution / packaging
 .Python
 env/
